@@ -34,6 +34,12 @@ lazy_static! {
 
             // Single digit hours are padded
             (Regex::new(" ([0-9]):").unwrap(), " 0${1}:"),
+
+            // Handle "Z" for timezone
+            (Regex::new(" (Z)$").unwrap(), " +0000"),
+
+            // If only date is given, append a time
+            (Regex::new(" ([0-9]{4})$").unwrap(), " ${1} 00:00:00 +0000"),
         )
     };
 
